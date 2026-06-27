@@ -1,0 +1,10 @@
+# Build artifacts — single-file previews (regenerate with `python3 build.py`)
+preview.html
+preview-debu-dengung.html
+preview-pacitan.html
+
+# OS / tooling cruft
+.DS_Store
+Thumbs.db
+__pycache__/
+*.pyc
