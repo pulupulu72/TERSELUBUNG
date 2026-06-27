@@ -8,3 +8,6 @@ preview-pacitan.html
 Thumbs.db
 __pycache__/
 *.pyc
+
+# Claude Code local state & worktrees
+.claude/

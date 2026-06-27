@@ -1,0 +1,764 @@
+/* =============================================================
+   TERSELUBUNG GIGS — printed underground magazine, on the web
+   style.css  ·  laid out as double-page spreads, not as a site.
+   Folios, running heads, full-bleed plates, justified columns,
+   drop caps and pull quotes. Type leads; the screen recedes.
+   ============================================================= */
+
+/* -------------------------------------------------------------
+   0. FONTS — self-hosted, Latin subset, woff2 (five families)
+   ------------------------------------------------------------- */
+@font-face {
+  font-family: "UnifrakturCook";
+  src: url("../fonts/unifrakturcook-bold.woff2") format("woff2");
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Anton";
+  src: url("../fonts/anton-regular.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Oswald";
+  src: url("../fonts/oswald-var.woff2") format("woff2");
+  font-weight: 200 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("../fonts/inter-var.woff2") format("woff2");
+  font-weight: 100 900; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("../fonts/ibmplexmono-regular.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("../fonts/ibmplexmono-medium.woff2") format("woff2");
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("../fonts/ibmplexmono-semibold.woff2") format("woff2");
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+
+/* -------------------------------------------------------------
+   1. TOKENS
+   ------------------------------------------------------------- */
+:root {
+  --paper:      #ebe7dc;
+  --paper-2:    #e3dece;   /* second paper tone for plate mats */
+  --ink:        #0e0e0e;
+  --ink-soft:   #2a2724;
+  --paper-muted:#6b675d;
+
+  --pink:   #ed1a5b;
+  --yellow: #f4c20d;
+  --green:  #1ea64a;
+  --blue:   #1a2bd8;
+
+  --hair:   rgba(14,14,14,.34);  /* hairline rules */
+  --hair-2: rgba(14,14,14,.16);
+
+  --f-logo: "UnifrakturCook", serif;
+  --f-disp: "Anton", sans-serif;
+  --f-nav:  "Oswald", sans-serif;
+  --f-body: "Inter", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", monospace;
+
+  --frame:  1320px;
+  --margin: clamp(22px, 4vw, 64px);   /* the printed page margin */
+}
+
+/* -------------------------------------------------------------
+   2. RESET / BASE
+   ------------------------------------------------------------- */
+*,*::before,*::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: #0e0e0e;            /* dark outside the page, like a desk */
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+ul { margin: 0; padding: 0; list-style: none; }
+h1,h2,h3,h4,p { margin: 0; }
+
+:focus-visible { outline: 3px solid var(--pink); outline-offset: 3px; }
+
+.skip-link {
+  position: absolute; left: -9999px; top: 0; z-index: 200;
+  background: var(--ink); color: var(--paper);
+  padding: 10px 16px; font-family: var(--f-nav);
+  text-transform: uppercase; letter-spacing: .12em;
+}
+.skip-link:focus { left: 8px; top: 8px; }
+
+.svg-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+/* -------------------------------------------------------------
+   3. PRINT TEXTURE
+   ------------------------------------------------------------- */
+.grain {
+  position: fixed; inset: 0; z-index: 90; pointer-events: none;
+  opacity: .5; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.2'/%3E%3C/svg%3E");
+}
+
+/* -------------------------------------------------------------
+   4. THE MAGAZINE — bound page on a dark desk
+   ------------------------------------------------------------- */
+.mag {
+  max-width: var(--frame);
+  margin: 0 auto;
+  background: var(--paper);
+  border-left: 3px solid #000;
+  border-right: 3px solid #000;
+  overflow: hidden;
+}
+
+/* ---- shared editorial atoms ---- */
+
+/* running head: section (l) / publication (r) */
+.runhead {
+  display: flex; justify-content: space-between; align-items: baseline;
+  gap: 16px;
+  padding: 11px var(--margin);
+  font-family: var(--f-mono);
+  font-size: clamp(.6rem, 1.3vw, .72rem);
+  text-transform: uppercase; letter-spacing: .22em;
+  color: var(--ink-soft);
+  border-bottom: 1px solid var(--hair);
+}
+.runhead b { font-weight: 600; color: var(--ink); letter-spacing: .22em; }
+
+/* folio — the page number, set at an outer corner */
+.folio {
+  font-family: var(--f-mono);
+  font-size: .72rem; letter-spacing: .3em;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+}
+
+/* kicker — small label above a headline */
+.kicker {
+  font-family: var(--f-mono);
+  font-size: .72rem; letter-spacing: .26em; text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.kicker .hot { color: var(--pink); font-weight: 600; }
+
+/* the spread + its centre spine (the binding) */
+.spread { position: relative; }
+.spread--split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+.spread--split::after {        /* the gutter / spine shadow */
+  content: ""; position: absolute; top: 0; bottom: 0; left: 50%;
+  width: 28px; transform: translateX(-50%);
+  background: linear-gradient(90deg, transparent, rgba(14,14,14,.10) 46%, rgba(14,14,14,.16) 50%, rgba(14,14,14,.10) 54%, transparent);
+  pointer-events: none; z-index: 4;
+}
+.page-l, .page-r { position: relative; min-width: 0; }
+
+/* heavy rule between stacked spreads */
+.spread + .spread { border-top: 3px solid #000; }
+
+/* =============================================================
+   5. DATELINE — static printed banner (no scroll; this is print)
+   ============================================================= */
+.dateline {
+  display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+  gap: 10px 26px;
+  background: #000; color: var(--paper);
+  padding: 9px var(--margin);
+  font-family: var(--f-mono);
+  font-size: clamp(.6rem,1.3vw,.72rem);
+  text-transform: uppercase; letter-spacing: .2em;
+  text-align: center;
+}
+.dateline .sep { color: var(--pink); }
+.dateline .em  { color: var(--yellow); }
+
+/* =============================================================
+   6. NAMEPLATE — the cover head
+   ============================================================= */
+.nameplate {
+  text-align: center;
+  padding: clamp(26px,5vw,68px) var(--margin) clamp(20px,3.4vw,40px);
+  border-bottom: 3px solid #000;
+}
+.nameplate__logo { margin: 0; line-height: 0; }
+.nameplate__img {
+  /* full wide — bleed across the whole page width, edge to edge */
+  width: calc(100% + 2 * var(--margin));
+  max-width: none;
+  margin-left: calc(-1 * var(--margin));
+  margin-right: calc(-1 * var(--margin));
+  height: auto;
+  display: block;
+}
+.nameplate__sub {
+  display: flex; align-items: center; justify-content: center; gap: 18px;
+  margin-top: clamp(8px,1.4vw,16px);
+}
+.nameplate__rule { height: 2px; width: clamp(40px,10vw,150px); background: var(--pink); }
+.nameplate__gigs {
+  font-family: var(--f-nav); font-weight: 600; color: var(--pink);
+  text-transform: uppercase;
+  font-size: clamp(1.1rem,2.6vw,1.8rem); letter-spacing: .46em; text-indent: .46em;
+}
+.nameplate__tag {
+  margin-top: 12px;
+  font-family: var(--f-mono);
+  font-size: clamp(.62rem,1.6vw,.82rem);
+  text-transform: uppercase; letter-spacing: .24em; color: var(--ink-soft);
+}
+
+/* =============================================================
+   6b. NAVIGATION — header; three columns, one label each.
+   Labels stay put but tremble gently ("bergetar") at low speed.
+   ============================================================= */
+.topnav {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background: var(--paper);
+  border-bottom: 3px solid #000;
+}
+.topnav__link {
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  padding: clamp(12px, 1.5vw, 18px) 10px;
+  font-family: var(--f-nav); font-weight: 600;
+  text-transform: uppercase; letter-spacing: .16em;
+  font-size: clamp(.92rem, 2vw, 1.3rem);
+  color: var(--ink);
+  transition: background-color .12s linear, color .12s linear;
+}
+.topnav__link + .topnav__link { border-left: 3px solid #000; }
+.topnav__link { box-shadow: inset 0 5px 0 0 var(--pink); }   /* red line on top of every column */
+.topnav__link:hover { background: var(--ink); color: var(--paper); }
+.topnav__dot {
+  width: 11px; height: 11px; border-radius: 50%;
+  background: var(--pink); flex: none;
+}
+.topnav__link:hover .topnav__dot { background: var(--paper); }
+
+/* gentle low-speed tremble on the word itself */
+.topnav__label {
+  display: inline-block;
+  animation: nav-shake var(--shake, 1.4s) ease-in-out infinite;
+  will-change: transform;
+}
+.topnav__link:hover .topnav__label { animation-play-state: paused; }
+
+@keyframes nav-shake {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25%      { transform: translate(0.8px, -0.7px) rotate(-0.6deg); }
+  50%      { transform: translate(-0.7px, 0.6px) rotate(0.5deg); }
+  75%      { transform: translate(0.6px, 0.7px) rotate(-0.4deg); }
+}
+
+/* =============================================================
+   7. DAFTAR ISI — contents page (this is the navigation)
+   ============================================================= */
+.toc { padding: 0; }
+.toc__head {
+  display: flex; align-items: flex-end; gap: 18px;
+  padding: clamp(18px,2.6vw,30px) var(--margin) 0;
+}
+.toc__head h2 {
+  font-family: var(--f-disp); text-transform: uppercase;
+  font-size: clamp(1.8rem,5vw,3.2rem); line-height: .9; letter-spacing: .01em;
+}
+.toc__head .no { color: var(--pink); }
+
+/* left page: the list of contents with leader dots + folios */
+.toc__list { padding: clamp(14px,2vw,24px) var(--margin) clamp(22px,3vw,34px); }
+.toc__item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: baseline; gap: 16px;
+  padding: 15px 0;
+  border-top: 1px solid var(--hair);
+  transition: background-color .12s linear;
+}
+.toc__item:first-child { border-top: 2px solid #000; }
+.toc__item:hover { background: rgba(14,14,14,.05); }
+.toc__num {
+  font-family: var(--f-mono); font-size: .8rem; letter-spacing: .12em;
+  color: var(--pink); font-weight: 600;
+}
+.toc__body { min-width: 0; }
+.toc__rubric {
+  font-family: var(--f-nav); font-weight: 600; text-transform: uppercase;
+  letter-spacing: .16em; font-size: .72rem; color: var(--ink-soft);
+  display: block; margin-bottom: 2px;
+}
+.toc__title {
+  font-family: var(--f-disp); text-transform: uppercase;
+  font-size: clamp(1.05rem,2vw,1.45rem); line-height: 1; letter-spacing: .01em;
+}
+.toc__pg {
+  font-family: var(--f-mono); font-size: .78rem; letter-spacing: .14em;
+  white-space: nowrap; color: var(--ink-soft);
+}
+.toc__item:hover .toc__pg { color: var(--pink); }
+
+/* the three standing rubrics, set as a footer of the contents */
+.toc__rubrics {
+  display: flex; flex-wrap: wrap; gap: 8px 26px;
+  margin-top: 18px; padding-top: 16px; border-top: 2px solid #000;
+  font-family: var(--f-nav); font-weight: 600; text-transform: uppercase;
+  letter-spacing: .18em; font-size: .82rem;
+}
+.toc__rubrics a { display: inline-flex; align-items: center; gap: 8px; }
+.toc__rubrics a::before { content:"●"; color: var(--pink); font-size: .6em; }
+.toc__rubrics a:hover { color: var(--pink); }
+
+/* right page: editor's note beside a plate */
+.toc__aside {
+  padding: clamp(18px,2.6vw,30px) var(--margin);
+  display: flex; flex-direction: column; gap: 18px;
+  border-left: 1px solid var(--hair-2);
+}
+.editorial__label {
+  font-family: var(--f-mono); text-transform: uppercase; letter-spacing: .26em;
+  font-size: .7rem; color: var(--ink-soft);
+}
+.editorial__text {
+  font-family: var(--f-body); font-size: clamp(.96rem,1.3vw,1.06rem);
+  line-height: 1.6; color: var(--ink-soft); max-width: 46ch;
+}
+.editorial__text .lead-in {
+  font-family: var(--f-disp); text-transform: uppercase; letter-spacing: .01em;
+  font-size: 1em; color: var(--ink); font-weight: 400;
+}
+.editorial__sign {
+  font-family: var(--f-mono); text-transform: uppercase; letter-spacing: .14em;
+  font-size: .74rem; color: var(--ink);
+}
+.editorial__sign b { color: var(--pink); font-weight: 600; }
+
+/* =============================================================
+   8. PLATE — magazine photography
+   ============================================================= */
+.plate { position: relative; margin: 0; background: var(--ink); }
+.plate img, .plate svg { width: 100%; height: 100%; object-fit: cover; display: block; }
+.plate--fill { height: 100%; }
+.plate--fill .plate__frame { height: 100%; }
+.plate__frame { position: relative; overflow: hidden; }
+
+/* plate number, stamped on a corner */
+.plate__no {
+  position: absolute; top: 0; left: 0; z-index: 3;
+  background: var(--ink); color: var(--paper);
+  font-family: var(--f-mono); font-weight: 600;
+  font-size: .68rem; letter-spacing: .2em; text-transform: uppercase;
+  padding: 6px 12px;
+}
+/* exclusive tab — taped on, askew */
+.plate__tab {
+  position: absolute; top: 16px; right: 16px; z-index: 3;
+  background: var(--yellow); color: var(--ink);
+  font-family: var(--f-nav); font-weight: 700; text-transform: uppercase;
+  letter-spacing: .1em; font-size: clamp(.74rem,1.5vw,.92rem);
+  padding: 7px 14px; transform: rotate(3deg);
+  border: 2px solid var(--ink); box-shadow: 3px 3px 0 rgba(14,14,14,.8);
+}
+/* vertical running word up the gutter edge */
+.plate__spineword {
+  position: absolute; bottom: 16px; right: 8px; z-index: 3;
+  writing-mode: vertical-rl;
+  font-family: var(--f-nav); font-weight: 700; text-transform: uppercase;
+  letter-spacing: .34em; font-size: .74rem; color: var(--paper);
+  mix-blend-mode: difference;
+}
+/* caption strip — mono, hung beneath the image on a paper mat */
+.plate__cap {
+  background: var(--paper); color: var(--ink-soft);
+  font-family: var(--f-mono); font-size: .68rem; line-height: 1.5;
+  letter-spacing: .08em; text-transform: uppercase;
+  padding: 9px var(--margin) 9px 14px;
+  border-top: 2px solid #000;
+}
+.plate__cap b { color: var(--ink); font-weight: 600; }
+
+/* =============================================================
+   9. FEATURE — the double-page review
+   ============================================================= */
+.feature .page-l { padding: 0; }              /* full-bleed plate column */
+.feature .plate { width: 100%; }
+.feature .plate--fill,
+.feature .plate--fill .plate__frame { height: auto; }   /* square, sits at top */
+.feature .plate__cap { position: static; }     /* caption hangs below the image */
+
+.feature__type {                              /* the type page */
+  padding: clamp(22px,3vw,46px) var(--margin) clamp(30px,4vw,60px);
+  display: flex; flex-direction: column;
+}
+.feature__head { margin: 14px 0 0; }
+.feature__title {
+  font-family: var(--f-disp); font-weight: 400;
+  font-size: clamp(2.7rem,7vw,5.6rem); line-height: .86; letter-spacing: .005em;
+  text-transform: none; margin: 10px 0 0;
+}
+.feature__title .pink { color: var(--pink); }
+.feature__deck {
+  font-family: var(--f-disp); font-weight: 400; text-transform: uppercase;
+  font-size: clamp(1.1rem,2.3vw,1.6rem); line-height: 1; letter-spacing: .02em;
+  color: var(--ink-soft); margin-top: 14px;
+}
+
+.feature__standfirst {
+  font-family: var(--f-body); font-weight: 500;
+  font-size: clamp(1.08rem,1.7vw,1.32rem); line-height: 1.5;
+  color: var(--ink); margin-top: clamp(16px,2vw,26px);
+  max-width: 54ch;
+}
+
+/* justified two-column body with a drop cap — the body of the spread */
+.feature__columns {
+  margin-top: clamp(18px,2.4vw,30px);
+  column-count: 2; column-gap: clamp(22px,3vw,42px);
+  column-rule: 1px solid var(--hair);
+  font-size: 1rem; line-height: 1.62; color: var(--ink-soft);
+  text-align: justify; hyphens: auto;
+}
+.feature__columns p { margin: 0; }
+.feature__columns p + p { margin-top: 1.05em; text-indent: 1.4em; }
+.feature__columns .dropcap::first-letter {
+  font-family: var(--f-disp); font-weight: 400;
+  float: left; font-size: 4.3em; line-height: .72;
+  padding: .04em .08em 0 0; margin: .02em 0 0;
+  color: var(--ink);
+}
+
+/* pull quote — full measure, heavy rules above & below */
+.pullquote {
+  margin: clamp(22px,3vw,38px) 0 0;
+  padding: clamp(16px,2vw,24px) 0;
+  border-top: 3px solid #000; border-bottom: 3px solid #000;
+  font-family: var(--f-disp); font-weight: 400; text-transform: none;
+  font-size: clamp(1.5rem,3vw,2.4rem); line-height: 1.04; letter-spacing: .005em;
+  color: var(--ink);
+}
+.pullquote .mark { color: var(--pink); }
+
+/* pull quote placed mid-article inside the multi-column flow:
+   break the columns and span the full measure */
+.feature__columns .pullquote {
+  column-span: all;
+  text-align: left;
+  margin: clamp(16px,2vw,24px) 0;
+}
+
+.feature__foot {
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px;
+  margin-top: clamp(18px,2.4vw,28px);
+  font-family: var(--f-mono); text-transform: uppercase; letter-spacing: .12em;
+  font-size: .76rem; color: var(--ink-soft);
+}
+.feature__foot .author { color: var(--pink); font-weight: 600; }
+.feature__foot .jump { color: var(--ink); }
+
+/* folios at the outer bottom corners of the feature spread */
+.feature .folio--l { position: absolute; left: var(--margin); bottom: 16px; }
+.feature .folio--r { position: absolute; right: var(--margin); bottom: 16px; }
+
+/* =============================================================
+   10. DEPARTEMEN — asymmetric departments spread
+   lead plate (left) + stacked entries (right)
+   ============================================================= */
+.dept__head {
+  display: flex; align-items: flex-end; justify-content: space-between; gap: 16px;
+  padding: clamp(18px,2.6vw,30px) var(--margin) 0;
+}
+.dept__head h2 {
+  font-family: var(--f-disp); text-transform: uppercase;
+  font-size: clamp(1.8rem,5vw,3.2rem); line-height: .9;
+}
+.dept__head .dot { color: var(--pink); }
+.dept__head .pg { font-family: var(--f-mono); font-size: .74rem; letter-spacing: .16em; color: var(--ink-soft); }
+
+.dept__body {
+  display: grid; grid-template-columns: 1.15fr .85fr;
+  gap: 0;
+  padding: clamp(16px,2.2vw,26px) 0 0;
+}
+.dept__lead { padding: 0 var(--margin); }
+.dept__lead .plate { background: var(--ink); }
+.dept__lead .plate__cap { padding-left: 14px; }
+.dept__lead-text { padding-top: 16px; }
+.dept__lead .rubric {
+  font-family: var(--f-nav); font-weight: 600; text-transform: uppercase;
+  letter-spacing: .16em; font-size: .76rem; color: var(--pink);
+}
+.dept__lead .title {
+  font-family: var(--f-disp); text-transform: uppercase;
+  font-size: clamp(1.5rem,3vw,2.3rem); line-height: .96; margin-top: 8px;
+}
+.dept__lead .excerpt {
+  font-family: var(--f-body); font-size: 1rem; line-height: 1.55;
+  color: var(--ink-soft); margin-top: 12px; max-width: 46ch;
+}
+.dept__lead .meta {
+  font-family: var(--f-mono); text-transform: uppercase; letter-spacing: .12em;
+  font-size: .72rem; color: var(--ink-soft); margin-top: 14px;
+}
+
+/* right column: stacked short department entries */
+.dept__list {
+  border-left: 3px solid #000;
+  display: flex; flex-direction: column;
+}
+.dept__entry {
+  display: grid; grid-template-columns: 96px 1fr;
+  gap: 16px; align-items: start;
+  padding: clamp(16px,2vw,22px) var(--margin) clamp(16px,2vw,22px) clamp(20px,2.4vw,30px);
+  border-bottom: 1px solid var(--hair);
+  transition: background-color .12s linear;
+}
+.dept__entry:last-child { border-bottom: none; }
+.dept__entry:hover { background: rgba(14,14,14,.05); }
+.dept__entry .thumb {
+  aspect-ratio: 1/1; background: var(--ink); overflow: hidden;
+  border: 2px solid #000;
+}
+.dept__entry .thumb svg, .dept__entry .thumb img { width: 100%; height: 100%; object-fit: cover; }
+.dept__entry .rubric {
+  font-family: var(--f-nav); font-weight: 600; text-transform: uppercase;
+  letter-spacing: .14em; font-size: .68rem;
+}
+.dept__entry .rubric.green { color: var(--green); }
+.dept__entry .rubric.yellow{ color: #b8910a; }
+.dept__entry .rubric.pink  { color: var(--pink); }
+.dept__entry .e-title {
+  font-family: var(--f-disp); text-transform: uppercase;
+  font-size: clamp(1.05rem,1.7vw,1.3rem); line-height: 1.02; margin-top: 5px;
+}
+.dept__entry .e-meta {
+  font-family: var(--f-mono); text-transform: uppercase; letter-spacing: .1em;
+  font-size: .66rem; color: var(--ink-soft); margin-top: 8px;
+}
+
+/* 10b. RILISAN TERBARU — featured card (new article entry) */
+.dept__featured {
+  display: grid;
+  grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr);
+  gap: clamp(18px, 3vw, 44px);
+  align-items: center;
+  padding: clamp(16px, 2.2vw, 26px) var(--margin) clamp(22px, 3vw, 34px);
+  border-bottom: 3px solid #000;
+}
+.dept__featured-cover { margin: 0; }
+.dept__featured-cover .plate__frame { border: 3px solid #000; }
+.dept__featured-read {
+  position: absolute; top: 0; right: 0; z-index: 3;
+  background: var(--ink); color: var(--paper);
+  font-family: var(--f-mono); font-weight: 500; font-size: .66rem;
+  letter-spacing: .16em; text-transform: uppercase; padding: 6px 11px;
+}
+.dept__featured-body { display: flex; flex-direction: column; }
+.dept__featured-kicker {
+  font-family: var(--f-mono); text-transform: uppercase; letter-spacing: .18em;
+  font-size: .72rem; color: var(--ink-soft);
+}
+.dept__featured-kicker .hot { color: var(--pink); }
+.dept__featured-title {
+  font-family: var(--f-disp); text-transform: uppercase;
+  font-size: clamp(2rem, 4.4vw, 3.4rem); line-height: .94; letter-spacing: .01em;
+  margin: 10px 0 0; color: var(--ink);
+  transition: color .12s linear;
+}
+.dept__featured:hover .dept__featured-title,
+.dept__featured:focus-visible .dept__featured-title { color: var(--pink); }
+.dept__featured-band {
+  font-family: var(--f-mono); text-transform: uppercase; letter-spacing: .12em;
+  font-size: .78rem; color: var(--ink-soft); margin-top: 10px;
+}
+.dept__featured-excerpt {
+  font-family: var(--f-body); font-size: 1rem; line-height: 1.6;
+  color: var(--ink-soft); margin-top: 14px; max-width: 52ch;
+}
+.dept__featured-more {
+  font-family: var(--f-nav); font-weight: 600; text-transform: uppercase;
+  letter-spacing: .12em; font-size: .8rem; color: var(--ink); margin-top: 16px;
+}
+.dept__featured:hover .dept__featured-more { color: var(--pink); }
+@media (max-width: 880px) {
+  .dept__featured { grid-template-columns: 1fr; }
+}
+
+/* 10c. FEED LIST — kontainer entri otomatis (kartu Siaran & daftar Arsip) */
+.feed-list { border-top: 3px solid #000; }
+.feed-list:empty { display: none; border-top: none; }
+
+/* link "Lihat semua di Arsip" di bawah kartu Siaran */
+.feed-more { margin: 0; padding: clamp(14px,2vw,20px) var(--margin); border-top: 1px solid var(--hair); }
+.feed-more a {
+  font-family: var(--f-nav); font-weight: 600; text-transform: uppercase;
+  letter-spacing: .12em; font-size: .8rem; color: var(--ink); text-decoration: none;
+}
+.feed-more a:hover { color: var(--pink); }
+
+/* 10d. BADGE — pil kategori di pojok kiri-atas sampul */
+.badge {
+  position: absolute; top: 0; left: 0; z-index: 3;
+  font-family: var(--f-nav); font-weight: 700; text-transform: uppercase;
+  letter-spacing: .14em; font-size: .64rem; line-height: 1;
+  padding: 6px 11px; color: #0e0e0e; background: var(--paper);
+  border-right: 2px solid #000; border-bottom: 2px solid #000;
+}
+.badge--green  { background: var(--green); color: #0e0e0e; }
+.badge--yellow { background: #f4c20d;      color: #0e0e0e; }
+.badge--pink   { background: var(--pink);  color: var(--paper); }
+
+/* =============================================================
+   11. IMPRESUM — back page (closing + subscribe + colophon)
+   ============================================================= */
+.imprint { background: #000; color: var(--paper); }
+.imprint .runhead { color: rgba(235,231,220,.7); border-bottom-color: rgba(235,231,220,.2); }
+.imprint .runhead b { color: var(--paper); }
+
+.closing {
+  padding: clamp(28px,4vw,60px) var(--margin) clamp(20px,3vw,40px);
+  border-bottom: 1px solid rgba(235,231,220,.2);
+}
+.closing h2 {
+  font-family: var(--f-disp); text-transform: uppercase;
+  font-size: clamp(2.4rem,8vw,6rem); line-height: .88; letter-spacing: .01em;
+}
+.closing h2 .y { color: var(--yellow); }
+.closing h2 .p { color: var(--pink); }
+
+/* subscribe card */
+.subscribe {
+  display: grid; grid-template-columns: 1.1fr auto; align-items: center;
+  gap: clamp(20px,4vw,56px);
+  padding: clamp(28px,4vw,52px) var(--margin);
+  border-bottom: 1px solid rgba(235,231,220,.2);
+}
+.subscribe__copy .lab {
+  font-family: var(--f-mono); text-transform: uppercase; letter-spacing: .24em;
+  font-size: .7rem; color: var(--yellow);
+}
+.subscribe__copy h3 {
+  font-family: var(--f-disp); text-transform: uppercase;
+  font-size: clamp(1.9rem, 5vw, 3.4rem); line-height: .98;
+  letter-spacing: .015em; margin: 0;
+}
+.subscribe__copy p {
+  font-family: var(--f-mono); text-transform: uppercase; letter-spacing: .1em;
+  font-size: clamp(.72rem, 1vw, .82rem); line-height: 1.75; color: rgba(235,231,220,.72);
+  margin-top: clamp(16px, 1.8vw, 22px); max-width: 42ch;
+}
+.subscribe__form { display: flex; flex-wrap: wrap; }
+.subscribe__input {
+  font-family: var(--f-mono); text-transform: uppercase; letter-spacing: .08em;
+  font-size: .8rem; color: var(--paper); background: transparent;
+  border: 2px solid var(--paper); border-right: none; padding: 13px 16px; min-width: 220px;
+}
+.subscribe__input::placeholder { color: rgba(235,231,220,.55); }
+.subscribe__btn {
+  font-family: var(--f-nav); font-weight: 700; text-transform: uppercase;
+  letter-spacing: .1em; font-size: .82rem; color: var(--ink);
+  background: var(--pink); border: 2px solid var(--pink); padding: 13px 22px; cursor: pointer;
+  transition: background-color .12s, color .12s;
+}
+.subscribe__btn:hover { background: var(--yellow); border-color: var(--yellow); }
+.subscribe__note {
+  width: 100%; margin-top: 10px; min-height: 1em;
+  font-family: var(--f-mono); text-transform: uppercase; letter-spacing: .1em;
+  font-size: .66rem; color: var(--green);
+}
+
+/* colophon / imprint credits */
+.colophon {
+  display: grid; grid-template-columns: auto 1fr auto auto;
+  align-items: center; gap: clamp(16px,3vw,40px);
+  padding: clamp(22px,3vw,38px) var(--margin);
+}
+.colophon__mark svg { width: 56px; height: 56px; }
+.colophon__credits {
+  font-family: var(--f-mono); text-transform: uppercase; letter-spacing: .08em;
+  font-size: clamp(.64rem,1.3vw,.74rem); line-height: 1.85; color: rgba(235,231,220,.82);
+}
+.colophon__credits b { color: var(--paper); font-weight: 600; }
+.colophon__ig {
+  display: inline-flex; align-items: center; gap: 14px; justify-self: end;
+}
+.colophon__ig-thumb {
+  width: 52px; height: 52px; flex: none;
+  border: 2px solid var(--paper);
+  display: grid; place-items: center; color: var(--paper);
+  transition: background-color .12s, border-color .12s, color .12s;
+}
+.colophon__ig-thumb svg { width: 28px; height: 28px; }
+.colophon__ig:hover .colophon__ig-thumb,
+.colophon__ig:focus-visible .colophon__ig-thumb {
+  background: var(--pink); border-color: var(--pink); color: var(--ink);
+}
+.colophon__ig-text { display: flex; flex-direction: column; line-height: 1.45; }
+.colophon__ig .lab {
+  font-family: var(--f-mono); text-transform: uppercase; letter-spacing: .2em;
+  font-size: .64rem; color: rgba(235,231,220,.6);
+}
+.colophon__ig .handle {
+  font-family: var(--f-nav); font-weight: 600; text-transform: uppercase;
+  letter-spacing: .06em; font-size: clamp(.92rem,1.4vw,1.1rem); color: var(--paper);
+}
+.colophon__ig:hover .handle { color: var(--pink); }
+.colophon__globe svg { width: 46px; height: 46px; }
+
+.endmark {
+  text-align: center; padding: 16px var(--margin) 26px;
+  font-family: var(--f-mono); text-transform: uppercase; letter-spacing: .3em;
+  font-size: .68rem; color: rgba(235,231,220,.55);
+}
+
+/* =============================================================
+   12. RESPONSIVE — spreads fold to single pages on small screens
+   ============================================================= */
+@media (max-width: 880px) {
+  .spread--split { grid-template-columns: 1fr; }
+  .spread--split::after { display: none; }          /* no spine when folded */
+
+  /* feature: plate sits above the type page */
+  .feature .page-l { order: -1; }
+  .feature__columns { column-count: 1; column-rule: none; }
+  .feature .plate--fill .plate__cap { position: static; }
+  .feature .folio--l, .feature .folio--r { position: static; display: inline-block; margin-top: 10px; }
+
+  /* contents aside loses its rule */
+  .toc__aside { border-left: none; border-top: 3px solid #000; }
+
+  /* departments stack */
+  .dept__body { grid-template-columns: 1fr; }
+  .dept__list { border-left: none; border-top: 3px solid #000; }
+
+  .subscribe, .colophon { grid-template-columns: 1fr; }
+  .colophon { row-gap: 20px; }
+  .colophon__ig { justify-self: start; }
+  .colophon__globe { display: none; }
+}
+
+@media (max-width: 460px) {
+  .mag { border-left: none; border-right: none; }
+  .dept__entry { grid-template-columns: 72px 1fr; gap: 12px; }
+  .nameplate { padding-left: 12px; padding-right: 12px; }
+  .nameplate__logo { letter-spacing: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto !important; transition: none !important; }
+  .topnav__label { animation: none; transform: none; }
+}
