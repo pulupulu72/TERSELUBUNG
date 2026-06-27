@@ -4,46 +4,58 @@ Platform editorial skena musik bawah tanah — dibangun sebagai *majalah cetak* 
 diterjemahkan ke web. Hitam-krem, tipografi keras, empat aksen cetak (pink, kuning,
 hijau, biru), tekstur kertas, dan tata letak bergaya *double-page spread*.
 
-Statis, tanpa framework, tanpa build step wajib. Cukup buka `index.html`.
+Statis, tanpa framework, tanpa build step. Halaman utama: `articles/index.html`.
 
 ## Struktur
 
 ```
-index.html              Halaman utama (dateline → nameplate → nav → fitur → departemen/arsip → impresum)
-debu-dengung.html       Halaman artikel: "Debu & Dengung — Luka Senyap"
-css/style.css           Seluruh sistem visual (token, tipografi, komponen)
-js/script.js            Interaksi minimal (form langganan)
-fonts/                  Lima font, self-hosted (woff2, subset Latin)
-assets/images/          Logo wordmark
-build.py                Membuat berkas preview*.html mandiri (opsional)
+articles/
+  index.html            Halaman utama — Siaran (headline + kartu terbaru)
+  arsip.html            Halaman Arsip (kabar/artikel lama)
+  kebisingan-sopan.html
+  debu-dengung.html     Halaman artikel
+  pacitan.html
+  _template.html        Kerangka artikel siap-salin
+assets/
+  css/style.css         Sistem visual utama (token, tipografi, komponen)
+  css/article.css       Tambahan khusus sebagian halaman artikel
+  js/articles.js        ★ Daftar konten — SATU sumber data, edit di sini
+  js/script.js          Renderer feed Siaran/Arsip + form langganan
+  fonts/                Lima font self-hosted (woff2, subset Latin)
+  images/               Logo wordmark
 ```
 
 Lima keluarga font: UnifrakturCook, Anton, Oswald, Inter, IBM Plex Mono — semua
 di-*host* sendiri, jadi situs tidak bergantung pada CDN mana pun.
 
+## Menambah berita / artikel
+
+Cukup edit satu file: `assets/js/articles.js`.
+
+1. *(Opsional, untuk halaman penuh)* salin `articles/_template.html` jadi
+   `articles/nama-artikel.html`, lalu isi.
+2. Tambah satu entri di `assets/js/articles.js` (isi `date` format `YYYY-MM-DD`
+   dan `file`).
+3. Simpan, refresh. Otomatis: artikel **terbaru** jadi headline, **3 berikutnya**
+   jadi kartu Siaran, **selebihnya** pindah ke halaman Arsip. (Jumlah kartu diatur
+   lewat `SIARAN_CARDS` di `assets/js/script.js`.)
+
 ## Menjalankan secara lokal
 
-Tidak butuh server. Buka `index.html` langsung di browser, atau jalankan server statis:
+Perlu server statis (artikel memuat `articles.js` lewat path relatif, jadi membuka
+berkas langsung via `file://` tidak cukup). Dari dalam folder `TERSELUBUNG/`:
 
 ```bash
-python3 -m http.server 8000
-# lalu buka http://localhost:8000
+npx serve .              # atau:  python3 -m http.server 8000
 ```
 
-## Membuat berkas preview mandiri (opsional)
-
-`preview.html` dan `preview-debu-dengung.html` adalah versi satu-berkas (CSS, JS, font,
-dan logo ditanam sebagai data-URI) untuk dibagikan/dilihat tanpa berkas pendamping.
-Keduanya adalah artefak build dan tidak disertakan di repo. Regenerasi dengan:
-
-```bash
-python3 build.py
-```
+Lalu buka `http://localhost:<port>/articles/index.html`.
 
 ## Deploy
 
 Situs statis — cocok untuk GitHub Pages, Netlify, Vercel, atau hosting statis apa pun.
-Untuk GitHub Pages: aktifkan Pages dari branch `main`, folder `/root`.
+Halaman masuknya `articles/index.html`; setel sebagai entry, atau tambahkan redirect
+dari root ke sana.
 
 ---
 
