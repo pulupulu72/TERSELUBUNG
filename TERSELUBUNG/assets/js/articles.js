@@ -37,7 +37,7 @@ window.TG_ARTICLES = [
     date:     "2026-06-26",
     read:     "8 Menit",
     excerpt:  "Setelah lima tahun cuma beredar lewat kaset bajakan dan rekaman gig yang buram, kuartet noise-pop ini melepas album penuh — dan ternyata jauh lebih lembut, lebih pahit, dan lebih jujur dari yang kita kira.",
-    file:     "kebisingan-sopan.html",
+    file:     "/articles/kebisingan-sopan.html",
     art: '<svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Sampul album Sopan">\
       <circle cx="39" cy="44" r="29" fill="#1a2bd8" style="mix-blend-mode:multiply"/>\
       <circle cx="62" cy="39" r="29" fill="#ed1a5b" style="mix-blend-mode:multiply"/>\
@@ -56,7 +56,7 @@ window.TG_ARTICLES = [
     date:     "2026-06-24",
     read:     "6 Menit",
     excerpt:  "Demo tape pertama Luka Senyap direkam di kamar kos berdebu — satu mikrofon, satu tape recorder warisan, satu amplifier yang dengungnya tak pernah benar-benar mati. Enam lagu yang memeluk desis pita dan cacat rekaman sebagai bagian dari musiknya. Kotor, hangat, dan anehnya jujur.",
-    file:     "debu-dengung.html",
+    file:     "/articles/debu-dengung.html",
     art: '<svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Sampul Debu & Dengung">\
       <circle cx="40" cy="46" r="27" fill="#1a2bd8" style="mix-blend-mode:multiply"/>\
       <circle cx="60" cy="40" r="25" fill="#ed1a5b" style="mix-blend-mode:multiply"/>\
@@ -93,7 +93,7 @@ window.TG_ARTICLES = [
     date:     "2026-06-21",
     read:     "9 Menit",
     excerpt:  "Liputan skena musik mandiri di pesisir selatan: kaset, gig garasi, zine, dan kolektif yang membangun musiknya sendiri tanpa menunggu izin siapa pun.",
-    file:     "pacitan.html",
+    file:     "/articles/pacitan.html",
     art: '<svg viewBox="0 0 200 200" role="img" aria-label="Pesisir selatan yang bising">\
       <rect width="200" height="200" fill="#1a1a1a"/>\
       <path d="M0 150 q50 -30 100 0 t100 0 v50 H0 Z" fill="#2a2a2a"/>\

@@ -4,10 +4,10 @@
   TEMPLATE ARTIKEL — cara pakai:
     1. SALIN berkas ini, ganti nama jadi  nama-artikel.html
     2. Ganti semua bagian bertanda  [ ... ]  dengan isimu.
-    3. Tambahkan entri artikel ini ke  ../assets/js/articles.js
+    3. Tambahkan entri artikel ini ke  /assets/js/articles.js
        (set "file" ke nama berkas di langkah 1) supaya muncul
        otomatis di Siaran/Arsip halaman utama.
-  Jangan ubah path ../assets/... dan tautan "Kembali".
+  Jangan ubah path /assets/... dan tautan "Kembali".
   ============================================================
 -->
 <html lang="id">
@@ -19,9 +19,9 @@
   <meta name="description" content="[Ringkasan satu kalimat untuk mesin pencari.]" />
   <meta name="theme-color" content="#0e0e0e" />
 
-  <link rel="preload" href="../assets/fonts/unifrakturcook-bold.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="../assets/fonts/anton-regular.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="preload" href="/assets/fonts/unifrakturcook-bold.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/anton-regular.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/assets/css/style.css" />
 </head>
 <body>
   <a class="skip-link" href="#artikel">Lewati ke artikel</a>
@@ -52,7 +52,7 @@
     <!-- NAMEPLATE -->
     <header class="nameplate">
       <h1 class="nameplate__logo">
-        <img class="nameplate__img" src="../assets/images/terselubung-logo.png"
+        <img class="nameplate__img" src="/assets/images/terselubung-logo.png"
              alt="TERSELUBUNG GIGS" width="1544" height="461" />
       </h1>
       <p class="nameplate__tag">Arsip • Siaran • Karya Sendiri</p>
@@ -61,7 +61,7 @@
     <!-- ARTICLE -->
     <article class="spread feature" id="artikel" aria-labelledby="art-title">
       <div class="runhead">
-        <a class="article-back" href="index.html" style="color:inherit">← Kembali ke Beranda</a>
+        <a class="article-back" href="/" style="color:inherit">← Kembali ke Beranda</a>
         <span>[Kategori] · <b>Terselubung Gigs</b></span>
       </div>
 
@@ -106,7 +106,7 @@
 
           <div class="feature__foot">
             <span>Oleh <span class="author">[Nama Penulis]</span> · Foto Arsip Terselubung · [tanggal]</span>
-            <a class="jump article-back" href="index.html" style="color:inherit">← Kembali ke Beranda</a>
+            <a class="jump article-back" href="/" style="color:inherit">← Kembali ke Beranda</a>
           </div>
         </div>
       </div>
@@ -144,6 +144,6 @@
 
   </div><!-- /.mag -->
 
-  <script src="../assets/js/script.js"></script>
+  <script src="/assets/js/script.js"></script>
 </body>
 </html>

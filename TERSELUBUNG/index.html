@@ -2,12 +2,158 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="refresh" content="0; url=articles/" />
-  <link rel="canonical" href="articles/" />
-  <title>TERSELUBUNG GIGS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>TERSELUBUNG GIGS — #19 · Arsip & Siaran Skena Musik Pacitan</title>
+  <meta name="description" content="Majalah cetak skena musik Pacitan, edisi web. Resensi, kabar gig, rilis, arsip, dan wawancara. Bising, jujur, dan mandiri." />
+  <meta name="theme-color" content="#0e0e0e" />
+  <meta property="og:title" content="TERSELUBUNG GIGS — #19" />
+  <meta property="og:description" content="Dokumentasi, informasi, dan siaran untuk skena musik Pacitan." />
+  <meta property="og:type" content="website" />
+
+  <!-- Five families, self-hosted (woff2, Latin subset) -->
+  <link rel="preload" href="/assets/fonts/unifrakturcook-bold.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/anton-regular.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/assets/css/style.css" />
 </head>
 <body>
-  <p>Mengalihkan ke <a href="articles/">TERSELUBUNG GIGS</a>…</p>
-  <script>location.replace("articles/");</script>
+  <a class="skip-link" href="#siaran">Lewati ke konten</a>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- printed-ink roughen filter for the nameplate -->
+  <svg class="svg-defs" aria-hidden="true" focusable="false" width="0" height="0">
+    <filter id="ink-rough">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.018" numOctaves="2" seed="7" result="n" />
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="3.4" xChannelSelector="R" yChannelSelector="G" />
+    </filter>
+  </svg>
+
+  <div class="mag">
+
+    <!-- ============================================== -->
+    <!-- DATELINE — static printed banner               -->
+    <!-- ============================================== -->
+    <div class="dateline">
+      <span class="em">Edisi #19</span>
+      <span class="sep">/</span>
+      <span>Skena Musik Pacitan</span>
+      <span class="sep">/</span>
+      <span>Distribusi Mandiri</span>
+      <span class="sep">/</span>
+      <span>Jun 2026</span>
+      <span class="sep">/</span>
+      <span>Rp0 — Gratis, Sebarkan</span>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- NAMEPLATE — the cover                          -->
+    <!-- ============================================== -->
+    <header class="nameplate">
+      <h1 class="nameplate__logo">
+        <img class="nameplate__img" src="/assets/images/terselubung-logo.png"
+             alt="TERSELUBUNG GIGS" width="1544" height="461" />
+      </h1>
+      <p class="nameplate__tag">bercengkerama bersama sebulan sekali</p>
+    </header>
+
+    <!-- ============================================== -->
+    <!-- NAVIGATION — header (rigid scrolling strip)    -->
+    <!-- ============================================== -->
+    <nav class="topnav" aria-label="Navigasi utama">
+      <a class="topnav__link topnav__link--active" href="#siaran" aria-current="page" style="--shake:1.4s;">
+        <span class="topnav__dot" aria-hidden="true"></span>
+        <span class="topnav__label">Siaran</span>
+      </a>
+      <a class="topnav__link" href="/articles/arsip.html" style="--shake:1.7s;">
+        <span class="topnav__dot" aria-hidden="true"></span>
+        <span class="topnav__label">Arsip</span>
+      </a>
+      <a class="topnav__link" href="#impresum" style="--shake:1.2s;">
+        <span class="topnav__dot" aria-hidden="true"></span>
+        <span class="topnav__label">Tentang</span>
+      </a>
+    </nav>
+
+    <!-- ============================================== -->
+    <!-- SIARAN — headline + kabar terbaru (OTOMATIS)   -->
+    <!-- Isi diambil dari /assets/js/articles.js          -->
+    <!-- ============================================== -->
+    <section class="spread" id="siaran" aria-label="Siaran">
+      <div class="runhead"><span>Sajian utama &amp; kabar terbaru</span><span><b>Terselubung Gigs</b></span></div>
+
+      <!-- HEADLINE: artikel terbaru -->
+      <div id="siaran-headline"></div>
+
+      <!-- KARTU: kabar terbaru berikutnya -->
+      <div id="siaran-cards" class="feed-list"></div>
+
+      <!-- Selebihnya ada di halaman Arsip -->
+      <p class="feed-more"><a href="/articles/arsip.html">Lihat semua di Arsip →</a></p>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- SPREAD IV — IMPRESUM (back page)               -->
+    <!-- ============================================== -->
+    <footer class="spread imprint" id="impresum">
+      <div class="runhead"><span>Impresum</span><span><b>Terselubung Gigs</b> · #19</span></div>
+
+      <!-- subscription card -->
+      <section class="subscribe" aria-labelledby="sub-title">
+        <div class="subscribe__copy">
+          <h3 id="sub-title">Mari terhubung<br />Tanpa panggung<br />Lewat karya<br />Bukan nama</h3>
+        </div>
+        <form class="subscribe__form" id="subscribe-form" novalidate>
+          <input class="subscribe__input" id="subscribe-email" type="email" name="email" placeholder="email@kamu.net" aria-label="Alamat email" required />
+          <button class="subscribe__btn" type="submit">Kirim</button>
+          <p class="subscribe__note" id="subscribe-note" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <!-- colophon / imprint -->
+      <section class="colophon">
+        <div class="colophon__mark" aria-hidden="true">
+          <svg viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="46" fill="none" stroke="#ebe7dc" stroke-width="3"/>
+            <circle cx="50" cy="50" r="30" fill="none" stroke="#ebe7dc" stroke-width="2"/>
+            <line x1="50" y1="4" x2="50" y2="96" stroke="#ebe7dc" stroke-width="2"/>
+            <line x1="4" y1="50" x2="96" y2="50" stroke="#ebe7dc" stroke-width="2"/>
+            <line x1="17" y1="17" x2="83" y2="83" stroke="#ebe7dc" stroke-width="2"/>
+            <line x1="83" y1="17" x2="17" y2="83" stroke="#ebe7dc" stroke-width="2"/>
+          </svg>
+        </div>
+        <p class="colophon__credits">
+          <b>Terselubung Gigs</b> — Dokumentasi, Informasi, Siaran Kecil Skena Musik Pacitan Yang Patut Didengarkan.
+        </p>
+        <a class="colophon__ig" href="https://instagram.com/terselubung.gigs" target="_blank" rel="noopener" aria-label="Instagram Terselubung Gigs">
+          <span class="colophon__ig-thumb" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <rect x="2.5" y="2.5" width="19" height="19" rx="5.2"/>
+              <circle cx="12" cy="12" r="4.4"/>
+              <circle cx="17.6" cy="6.4" r="1.3" fill="currentColor" stroke="none"/>
+            </svg>
+          </span>
+          <span class="colophon__ig-text">
+            <span class="lab">Temukan Kami Di</span>
+            <span class="handle">@terselubung.gigs</span>
+          </span>
+        </a>
+        <div class="colophon__globe" aria-hidden="true">
+          <svg viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="44" fill="none" stroke="#ebe7dc" stroke-width="3"/>
+            <ellipse cx="50" cy="50" rx="20" ry="44" fill="none" stroke="#ebe7dc" stroke-width="2"/>
+            <ellipse cx="50" cy="50" rx="44" ry="20" fill="none" stroke="#ebe7dc" stroke-width="2"/>
+            <line x1="6" y1="50" x2="94" y2="50" stroke="#ebe7dc" stroke-width="2"/>
+            <line x1="50" y1="6" x2="50" y2="94" stroke="#ebe7dc" stroke-width="2"/>
+          </svg>
+        </div>
+      </section>
+
+      <p class="endmark">— Halaman Terakhir · #19 · Selesai —</p>
+    </footer>
+
+  </div><!-- /.mag -->
+
+  <script src="/assets/js/articles.js"></script>
+  <script src="/assets/js/script.js"></script>
 </body>
 </html>
