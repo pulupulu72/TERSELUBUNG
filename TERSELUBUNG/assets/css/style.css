@@ -754,8 +754,10 @@ h1,h2,h3,h4,p { margin: 0; }
 @media (max-width: 460px) {
   .mag { border-left: none; border-right: none; }
   .dept__entry { grid-template-columns: 72px 1fr; gap: 12px; }
-  .nameplate { padding-left: 12px; padding-right: 12px; }
+  .nameplate { padding-left: 18px; padding-right: 18px; }
   .nameplate__logo { letter-spacing: 0; }
+  /* jangan full-bleed di HP — beri ruang napas di tepi */
+  .nameplate__img { width: 100%; margin-left: 0; margin-right: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
