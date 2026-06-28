@@ -683,16 +683,18 @@ h1,h2,h3,h4,p { margin: 0; }
 
 /* colophon / imprint credits */
 .colophon {
-  display: grid; grid-template-columns: auto 1fr auto auto;
-  align-items: center; gap: clamp(16px,3vw,40px);
+  display: flex; flex-wrap: wrap; align-items: center;
+  gap: clamp(18px,3vw,40px);
   padding: clamp(22px,3vw,38px) var(--margin);
 }
 .colophon__mark svg { width: 56px; height: 56px; }
 .colophon__credits {
+  flex: 1 1 240px; max-width: 52ch;
   font-family: var(--f-mono); text-transform: uppercase; letter-spacing: .08em;
   font-size: clamp(.64rem,1.3vw,.74rem); line-height: 1.85; color: rgba(235,231,220,.82);
 }
 .colophon__credits b { color: var(--paper); font-weight: 600; }
+.colophon__contacts { display: flex; flex-wrap: wrap; align-items: center; gap: clamp(18px,2.5vw,34px); }
 .colophon__ig {
   display: inline-flex; align-items: center; gap: 14px; justify-self: end;
 }
@@ -745,10 +747,9 @@ h1,h2,h3,h4,p { margin: 0; }
   .dept__body { grid-template-columns: 1fr; }
   .dept__list { border-left: none; border-top: 3px solid #000; }
 
-  .subscribe, .colophon { grid-template-columns: 1fr; }
-  .colophon { row-gap: 20px; }
-  .colophon__ig { justify-self: start; }
-  .colophon__globe { display: none; }
+  .subscribe { grid-template-columns: 1fr; }
+  .colophon { gap: 20px; }
+  .colophon__credits { flex-basis: 100%; }
 }
 
 @media (max-width: 460px) {

@@ -12,6 +12,12 @@
   var note  = document.getElementById("subscribe-note");
 
   if (form && email && note) {
+    /* Web3Forms \u2014 submission langsung masuk ke email pemilik.
+       Ambil access key GRATIS di https://web3forms.com (isikan email
+       terselubunggigspct@gmail.com), lalu tempel menggantikan teks di
+       bawah ini. Kunci ini memang aman dipasang di sisi klien. */
+    var WEB3FORMS_KEY = "GANTI_DENGAN_ACCESS_KEY";
+
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       var value = email.value.trim();
@@ -22,9 +28,35 @@
         email.focus();
         return;
       }
-      note.style.color = "var(--green)";
-      note.textContent = "\u2713 Terdaftar. Sampai jumpa di edisi berikutnya.";
-      email.value = "";
+      if (WEB3FORMS_KEY === "GANTI_DENGAN_ACCESS_KEY") {
+        note.style.color = "var(--paper)";
+        note.textContent = "Form segera aktif \u2014 sementara sapa kami lewat surel/IG di bawah.";
+        return;
+      }
+      note.style.color = "var(--paper)";
+      note.textContent = "Mengirim\u2026";
+      fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: "Kabar baru dari pengunjung TERSELUBUNG GIGS",
+          from_name: "Web TERSELUBUNG GIGS",
+          email: value
+        })
+      }).then(function (r) { return r.json(); }).then(function (data) {
+        if (data && data.success) {
+          note.style.color = "var(--green)";
+          note.textContent = "\u2713 Terkirim. Kami akan kabari lewat email.";
+          email.value = "";
+        } else {
+          note.style.color = "var(--pink)";
+          note.textContent = "\u00D7 Gagal mengirim. Coba lagi nanti.";
+        }
+      }).catch(function () {
+        note.style.color = "var(--pink)";
+        note.textContent = "\u00D7 Gagal mengirim. Cek koneksi.";
+      });
     });
     email.addEventListener("input", function () {
       if (note.textContent) { note.textContent = ""; }
