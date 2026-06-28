@@ -7,8 +7,29 @@
 (function () {
   "use strict";
 
-  /* Kontak kini lewat tombol "Kirim" (mailto) langsung di HTML \u2014
-     tak perlu JS untuk form langganan lagi. */
+  var form  = document.getElementById("subscribe-form");
+  var email = document.getElementById("subscribe-email");
+  var note  = document.getElementById("subscribe-note");
+
+  if (form && email && note) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var value = email.value.trim();
+      var valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+      if (!valid) {
+        note.style.color = "var(--pink)";
+        note.textContent = "\u00D7 Email belum benar. Coba lagi.";
+        email.focus();
+        return;
+      }
+      note.style.color = "var(--green)";
+      note.textContent = "\u2713 Terdaftar. Sampai jumpa di edisi berikutnya.";
+      email.value = "";
+    });
+    email.addEventListener("input", function () {
+      if (note.textContent) { note.textContent = ""; }
+    });
+  }
 
   /* -----------------------------------------------------------
      FEED OTOMATIS — semua konten dari window.TG_ARTICLES.

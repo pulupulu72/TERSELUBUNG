@@ -79,12 +79,13 @@
 
       <section class="subscribe" aria-labelledby="sub-title">
         <div class="subscribe__copy">
-          <h3 id="sub-title">Mari<br />Bertukar<br />Kabar</h3>
-          <p>Punya rilisan, kabar gig, zine, atau cerita skena? Tukar kabar lewat surel — terselubunggigspct@gmail.com</p>
+          <h3 id="sub-title">Mari terhubung<br />Tanpa panggung<br />Lewat karya<br />Bukan nama</h3>
         </div>
-        <div class="subscribe__form">
-          <a class="subscribe__btn" href="mailto:terselubunggigspct@gmail.com">Kirim</a>
-        </div>
+        <form class="subscribe__form" id="subscribe-form" novalidate>
+          <input class="subscribe__input" id="subscribe-email" type="email" name="email" placeholder="email@kamu.net" aria-label="Alamat email" required />
+          <button class="subscribe__btn" type="submit">Kirim</button>
+          <p class="subscribe__note" id="subscribe-note" role="status" aria-live="polite"></p>
+        </form>
       </section>
 
       <section class="colophon">

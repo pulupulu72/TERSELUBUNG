@@ -669,10 +669,9 @@ h1,h2,h3,h4,p { margin: 0; }
 }
 .subscribe__input::placeholder { color: rgba(235,231,220,.55); }
 .subscribe__btn {
-  display: inline-block; text-decoration: none;
   font-family: var(--f-nav); font-weight: 700; text-transform: uppercase;
   letter-spacing: .1em; font-size: .82rem; color: var(--ink);
-  background: var(--pink); border: 2px solid var(--pink); padding: 13px 28px; cursor: pointer;
+  background: var(--pink); border: 2px solid var(--pink); padding: 13px 22px; cursor: pointer;
   transition: background-color .12s, color .12s;
 }
 .subscribe__btn:hover { background: var(--yellow); border-color: var(--yellow); }
