@@ -30,6 +30,24 @@
 window.TG_ARTICLES = [
 
   {
+    title:    "Tanah Longsor",
+    band:     "Ombak Patah · Single",
+    kategori: "Rilis",
+    tone:     "green",
+    date:     "2026-06-30",
+    read:     "5 Menit",
+    excerpt:  "Direkam di garasi sempit dekat dermaga, single post-punk pesisir ini terdengar seperti tanah yang benar-benar runtuh — keras, basah, dan tak minta maaf.",
+    file:     "/articles/ombak-patah.html",
+    art: '<svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Sampul Tanah Longsor">\
+      <circle cx="42" cy="40" r="26" fill="#1a2bd8" style="mix-blend-mode:multiply"/>\
+      <circle cx="60" cy="46" r="24" fill="#ed1a5b" style="mix-blend-mode:multiply"/>\
+      <path d="M6 78 L34 58 L52 70 L78 50 L94 60" fill="none" stroke="#0e0e0e" stroke-width="2"/>\
+      <g fill="none" stroke="#0e0e0e" stroke-width="1.4"><path d="M10 88 q12 -8 24 0 t24 0 t24 0"/></g>\
+      <circle cx="78" cy="24" r="8" fill="#f4c20d"/>\
+    </svg>'
+  },
+
+  {
     title:    "Kebisingan yang Sopan",
     band:     "Selokan Kota · Album ‘Sopan’",
     kategori: "Resensi",
